@@ -1,0 +1,18 @@
+% latex table generated in R 4.2.1 by xtable 1.8-4 package
+% Mon Nov  7 18:47:40 2022
+\begin{table}[ht]
+\centering
+\begin{tabular}{lrrrrr}
+  \hline
+ & kmeans.5 & kmeans.10 & hclust.complete & hclust.single & hclust.average \\ 
+  \hline
+Accuracy & 0.9740 & 0.9740 & 0.9591 & 0.3156 & 0.9979 \\ 
+  Precision & 0.8243 & 0.8243 & 0.7546 & 0.1134 & 0.9882 \\ 
+  Recall & 0.8943 & 0.8943 & 0.7902 & 0.9991 & 0.9878 \\ 
+  Specificity & 0.9817 & 0.9817 & 0.9753 & 0.2500 & 0.9989 \\ 
+  Jaccard & 0.7511 & 0.7511 & 0.6287 & 0.1134 & 0.9763 \\ 
+  Fowlkes-Mallows & 0.8586 & 0.8586 & 0.7722 & 0.3366 & 0.9880 \\ 
+   \hline
+\end{tabular}
+\caption{Tabla con los resultados de la clusterización del dataset \code{boxes3}.} 
+\end{table}

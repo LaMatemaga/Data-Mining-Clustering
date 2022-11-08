@@ -10,7 +10,8 @@ packages <- c("ggplot2",              # Create visualizations
               "plyr",                 # Combine dataframes
               "readr",                # read_csv is way faster than read.csv
               "fpc",                  # 
-              "cluster")              # 
+              "cluster",              # 
+              "xtable")               # Export data frame to latex table
 install.packages(setdiff(packages, rownames(installed.packages())))
 lapply(packages, library, character.only = TRUE)
 rm(packages)
@@ -30,57 +31,8 @@ data <- normalizeData(data)
 data <- get.kmeans(data,kClust)
 data <- get.hclustering(data, kClust)
 
+# Get evaluation indexes
+data <- get.indices(data)
 
-
-
-
-
-### Might be helpful to have later
-
-indices <- cluster.stats(d=datosN.euc, clustering=data$basic3$realTags, alt.clustering=NULL)
-indices$dunn
-silh<-silhouette(tags.single,datosN.euc) 
-
-
-val<-summary(silh)
-val[["si.summary"]][["Mean"]] #Medida relativa   No supe como extraerlo sin guardarlo en otra variable jeje
-val$si.summary$Mean
-
-
-
-tibble.df <- bind_cols(data$boxes3$processedData,color=paste("Grupo",data$boxes3$realTags))
-
-ggplot(tibble.df,aes(x,y)) + geom_point(aes(color=color))
-
-
-+
-  theme_light() + xlab("Variable x") + ylab("Variable y")
-
-
-
-
-##################
-
-
-##
-
-
-# Single method of hierarchical clustering
-HC.single     <- hclust(dataEuclidean, method = "single")
-tags.single   <- as.numeric(cutree(HC.single, k=kClust[i]))
-matrix.single <- getConfusionMatrix(data[[i]]$realTags,tags.single)
-
-# Average method of hierarchical clustering
-HC.average     <- hclust(dataEuclidean, method = "average")
-tags.average   <- as.numeric(cutree(HC.average, k=kClust[i]))
-matrix.average <- getConfusionMatrix(data[[i]]$realTags,tags.average)
-
-# Save prediction tags in list
-data[[i]]$results$hclust.complete$tags <- tags.complete
-data[[i]]$results$hclust.single$tags   <- tags.single
-data[[i]]$results$hclust.average$tags  <- tags.average
-
-# Save confusion matrices in list
-data[[i]]$results$hclust.complete$confusionMatrix <- matrix.complete
-data[[i]]$results$hclust.single$confusionMatrix   <- matrix.single
-data[[i]]$results$hclust.average$confusionMatrix  <- matrix.average
+# Export graphs
+exportGraphs(data)
